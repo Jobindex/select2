@@ -193,7 +193,7 @@ define([
 
     this.trigger('open', {});
 
-    this.$search.val(item.text + ' ');
+    this.$search.val('');
   };
 
   Search.prototype.resizeSearch = function () {
