@@ -118,6 +118,13 @@ define([
       function (evt) {
         var key = evt.which;
 
+        // Workaround for race condition mentioned in issue #3300
+        var msie = document.documentMode;
+        if (msie && msie <= 11 && evt.type === 'input') {
+              self.$selection.off('input.search input.searchcheck');
+                return;
+        }
+
         // We can freely ignore events from modifier keys
         if (key == KEYS.SHIFT || key == KEYS.CTRL || key == KEYS.ALT) {
           return;
