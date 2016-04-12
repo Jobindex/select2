@@ -784,13 +784,7 @@ S2.define('select2/results',[
       )
     );
 
-    $message[0].className += ' select2-results__message';
-
     this.$results.append($message);
-  };
-
-  Results.prototype.hideMessages = function () {
-    this.$results.find('.select2-results__message').remove();
   };
 
   Results.prototype.append = function (data) {
@@ -992,7 +986,6 @@ S2.define('select2/results',[
     });
 
     container.on('query', function (params) {
-      self.hideMessages();
       self.showLoading(params);
     });
 
@@ -1376,7 +1369,7 @@ S2.define('select2/selection/base',[
   BaseSelection.prototype._handleBlur = function (evt) {
     var self = this;
 
-    // This needs to be delayed as the active element is the body when the tab
+    // This needs to be delayed as the actve element is the body when the tab
     // key is pressed, possibly along with others.
     window.setTimeout(function () {
       // Don't trigger `blur` if the focus is still in the selection
@@ -1906,13 +1899,6 @@ S2.define('select2/selection/search',[
       '.select2-search--inline',
       function (evt) {
         var key = evt.which;
-
-        // Workaround for race condition mentioned in issue #3300
-        var msie = document.documentMode;
-        if (msie && msie <= 11 && evt.type === 'input') {
-              self.$selection.off('input.search input.searchcheck');
-                return;
-        }
 
         // We can freely ignore events from modifier keys
         if (key == KEYS.SHIFT || key == KEYS.CTRL || key == KEYS.ALT) {
@@ -3778,10 +3764,6 @@ S2.define('select2/dropdown',[
     this.$dropdown = $dropdown;
 
     return $dropdown;
-  };
-
-  Dropdown.prototype.bind = function () {
-    // Should be implemented in subclasses
   };
 
   Dropdown.prototype.position = function ($dropdown, $container) {
